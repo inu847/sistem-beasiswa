@@ -4,6 +4,7 @@ use App\Http\Controllers\Back\BeasiswaController;
 use App\Http\Controllers\Back\RoleController;
 use App\Http\Controllers\Back\SiswaController;
 use App\Http\Controllers\Back\UserController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,13 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/cache-clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    Artisan::call('optimize');
+
+    return 'Cache Cleared';
+});
+
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
-Route::get('/pendaftaran', function () {
-    return view('pendaftaran');
-})->name('pendaftaran');
 
 Auth::routes();
 
@@ -31,6 +38,9 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 Route::post('/beasiswa/approve/{id}', [BeasiswaController::class, 'approve'])->name('beasiswa.approve');
 Route::post('/beasiswa/reject/{id}', [BeasiswaController::class, 'reject'])->name('beasiswa.reject');
 Route::resource('beasiswa', BeasiswaController::class);
-Route::resource('role', RoleController::class);
+// Route::resource('role', RoleController::class);
 Route::resource('manage-user', UserController::class);
 Route::resource('siswa', SiswaController::class);
+Route::get('/pendaftaran', function () {
+    return view('pendaftaran');
+})->name('pendaftaran')->middleware('auth');
