@@ -65,7 +65,7 @@
                   id="">
                   <option value="prestasi">Prestasi</option>
                   <option value="kurang mampu">Kurang Mampu</option>
-                  <option value="kurang mampu">Prestasi & Kurang Mampu</option>
+                  <option value="prestasi dan kurang mampu">Prestasi & Kurang Mampu</option>
                 </select>
               </label>
             </div>
