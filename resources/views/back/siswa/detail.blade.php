@@ -9,7 +9,7 @@ Detail Siswa
     Detail Siswa
 </h2>
 
-<div>
+<div id="print">
     <div>
         <table class="text-left m-5 p-5">
             <tr>
@@ -137,4 +137,27 @@ Detail Siswa
                 <td>{{ $data->penghasilan_ibu }}</td>
             </tr>
         </table>
+    </div>
+</div>
+
+{{-- BUTTON PRINT --}}
+<div class="flex justify-end">
+    <button onclick="printDiv('print')" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Print
+    </button>
+</div>
+
 @endsection
+
+@push('js')
+    <script>
+        // FUNCTION PRINT ON ID print
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+@endpush
